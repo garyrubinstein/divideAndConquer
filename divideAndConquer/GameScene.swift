@@ -13,5 +13,7 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         let testBlock = gameBlock()
         print(testBlock.getDivisor())
+        print(testBlock.getDivisor())
+        print(testBlock.getQuotient())
     }
 }
