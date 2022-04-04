@@ -14,11 +14,24 @@ class gameBlock: SKSpriteNode {
     private var theWidth: CGFloat = 300
     
     func initializeGameBlock () {
+        print("initializeGameBlock")
         // self.size =  = theWidth
         // self.height = theHeight
         // var barra = SKSpriteNode()
         self.name = "tester"
-        self.size = CGSize(width: 300.0, height: 100.0)
+        self.size = CGSize(width: 200.0, height: 100.0)
+        self.color = UIColor.blue
+        
+        // let ball = SKSpriteNode(color: UIColor.red, size: CGSize(width: 200.0, height: 100.0))
+        let ballLabel = SKLabelNode(text: "hello")
+        ballLabel.fontSize = 64.0
+        ballLabel.fontName = "AvenirNext-Bold"
+        var xPos = CGFloat.random(in: -300...300)
+        self.position = CGPoint(x: xPos, y: 650.0)
+        // ball.position = CGPoint(x: CGFloat(Int(arc4random()) & Int(size.width)), y: size.height - ball.size.height)
+        self.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 200.0, height: 100.0))
+        // ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width/2)
+        self.addChild(ballLabel)
         // self.color = SKColor.green
         // self.position = CGPoint(x: 100, y: 100)
         // self.addChild(barra)
