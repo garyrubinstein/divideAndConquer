@@ -15,6 +15,7 @@ class gameBlock: SKSpriteNode {
     private var ballLabel: SKLabelNode = SKLabelNode()
     
     func initializeGameBlock () {
+        self.isUserInteractionEnabled = true
         print("initializeGameBlock")
         // self.size =  = theWidth
         // self.height = theHeight
@@ -59,5 +60,15 @@ class gameBlock: SKSpriteNode {
     }
     func getLabel() -> SKLabelNode {
         return ballLabel
+    }
+    func getName() -> String {
+        return self.name ?? "noname"
+    }
+    func setName(s: String) {
+        self.name = s
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print(self.name)
+        self.position.y = self.position.y-2000
     }
 }

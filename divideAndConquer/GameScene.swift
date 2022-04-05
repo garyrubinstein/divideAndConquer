@@ -53,6 +53,7 @@ class GameScene: SKScene {
         let testBlock = gameBlock(color: UIColor.red, size: CGSize(width: 300.0, height: 100.0))
         testBlock.initializeGameBlock()
         testBlock.getLabel().text = String(blockNum)
+        testBlock.setName(s: String(blockNum))
         blockNum += 1
         self.addChild(testBlock)
     }
@@ -60,5 +61,6 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         print("touched")
         createBlock()
+        
     }
 }
