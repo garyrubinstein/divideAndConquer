@@ -12,6 +12,7 @@ class gameBlock: SKSpriteNode {
     private var quotient: Int = 24
     private var theHeight: CGFloat = 100
     private var theWidth: CGFloat = 300
+    private var ballLabel: SKLabelNode = SKLabelNode()
     
     func initializeGameBlock () {
         print("initializeGameBlock")
@@ -23,7 +24,8 @@ class gameBlock: SKSpriteNode {
         self.color = UIColor.blue
         
         // let ball = SKSpriteNode(color: UIColor.red, size: CGSize(width: 200.0, height: 100.0))
-        let ballLabel = SKLabelNode(text: "hello")
+        ballLabel.text = "hi there"
+        // let ballLabel = SKLabelNode(text: "hello")
         ballLabel.fontSize = 64.0
         ballLabel.fontName = "AvenirNext-Bold"
         var xPos = CGFloat.random(in: -300...300)
@@ -54,5 +56,8 @@ class gameBlock: SKSpriteNode {
     }
     func getQuotient() -> Int {
         return quotient
+    }
+    func getLabel() -> SKLabelNode {
+        return ballLabel
     }
 }

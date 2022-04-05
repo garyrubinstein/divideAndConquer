@@ -9,6 +9,7 @@ import SpriteKit
 // import GameplayKit
 
 class GameScene: SKScene {
+    var blockNum: Int = 0
     /*
     override func didMove(to view: SKView) {
         let testBlock = gameBlock(color: UIColor.white, size: CGSize(width: 300.0, height: 100.0))
@@ -51,6 +52,8 @@ class GameScene: SKScene {
     func createBlock () {
         let testBlock = gameBlock(color: UIColor.red, size: CGSize(width: 300.0, height: 100.0))
         testBlock.initializeGameBlock()
+        testBlock.getLabel().text = String(blockNum)
+        blockNum += 1
         self.addChild(testBlock)
     }
     
