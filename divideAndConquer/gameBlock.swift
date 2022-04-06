@@ -13,15 +13,16 @@ class gameBlock: SKSpriteNode {
     private var theHeight: CGFloat = 100
     private var theWidth: CGFloat = 300
     private var ballLabel: SKLabelNode = SKLabelNode()
+    private var sideLen: CGFloat = 300
     
     func initializeGameBlock () {
-        self.isUserInteractionEnabled = true
+        self.isUserInteractionEnabled = false
         print("initializeGameBlock")
         // self.size =  = theWidth
         // self.height = theHeight
         // var barra = SKSpriteNode()
         self.name = "tester"
-        self.size = CGSize(width: 200.0, height: 100.0)
+        self.size = CGSize(width: sideLen, height: sideLen)
         self.color = UIColor.blue
         
         // let ball = SKSpriteNode(color: UIColor.red, size: CGSize(width: 200.0, height: 100.0))
@@ -32,7 +33,7 @@ class gameBlock: SKSpriteNode {
         var xPos = CGFloat.random(in: -300...300)
         self.position = CGPoint(x: xPos, y: 650.0)
         // ball.position = CGPoint(x: CGFloat(Int(arc4random()) & Int(size.width)), y: size.height - ball.size.height)
-        self.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 200.0, height: 100.0))
+        self.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sideLen, height: sideLen))
         // ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width/2)
         self.addChild(ballLabel)
         // self.color = SKColor.green
@@ -69,6 +70,6 @@ class gameBlock: SKSpriteNode {
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         print(self.name)
-        self.position.y = self.position.y-2000
+        self.position.y = self.position.y-2000 // moves up above the screen
     }
 }

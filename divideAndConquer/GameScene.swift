@@ -10,6 +10,7 @@ import SpriteKit
 
 class GameScene: SKScene {
     var blockNum: Int = 0
+    var buttonWidth: CGFloat = 50.0
     /*
     override func didMove(to view: SKView) {
         let testBlock = gameBlock(color: UIColor.white, size: CGSize(width: 300.0, height: 100.0))
@@ -28,11 +29,38 @@ class GameScene: SKScene {
         // scene!.physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         scene!.physicsBody = SKPhysicsBody(edgeFrom: CGPoint(x: -375, y: -1334/2+100), to: CGPoint(x: 375, y: -1334/2+100))
         scene!.physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
+        makeButtons()
         // var i = 0
         
         //createBall()
         //run(SKAction.repeat(SKAction.sequence())
         // run(SKAction.repeat(SKAction.sequence([SKAction.run(createBall), SKAction.wait(forDuration: 0.05)]), count: 200))
+    }
+    func makeButtons() {
+        let plusOne = SKShapeNode(circleOfRadius: buttonWidth)
+        let plusTen = SKShapeNode(circleOfRadius: buttonWidth)
+        let minusOne = SKShapeNode(circleOfRadius: buttonWidth)
+        let minusTen = SKShapeNode(circleOfRadius: buttonWidth)
+        plusOne.fillColor = UIColor.red
+        plusTen.fillColor = UIColor.blue
+        minusOne.fillColor = UIColor.green
+        minusTen.fillColor = UIColor.yellow
+        plusOne.name = "plusOne"
+        plusTen.name = "plusTen"
+        minusOne.name = "minusOne"
+        minusTen.name = "minusTen"
+        plusOne.position = CGPoint(x: -300, y: 600)
+        plusTen.position = CGPoint(x: -300, y: 500)
+        minusOne.position = CGPoint(x: 300, y: 600)
+        minusTen.position = CGPoint(x: 300, y: 500)
+        plusOne.zPosition = 5
+        plusTen.zPosition = 5
+        minusOne.zPosition = 5
+        minusTen.zPosition = 5
+        self.addChild(plusOne)
+        self.addChild(plusTen)
+        self.addChild(minusOne)
+        self.addChild(minusTen)
     }
     func createBall() {
         //let ball = SKSpriteNode(imageNamed: "ball")
@@ -60,7 +88,16 @@ class GameScene: SKScene {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         print("touched")
-        createBlock()
         
+        for touch in touches {
+            let location = touch.location(in: self)
+            let touchedNode = self.nodes(at: location)
+            // touchNothing = true
+            for node in touchedNode {
+                print("nodename")
+                print(node.name)
+            }
+        }
+        createBlock()
     }
 }
