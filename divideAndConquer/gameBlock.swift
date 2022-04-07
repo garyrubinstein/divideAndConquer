@@ -14,6 +14,8 @@ class gameBlock: SKSpriteNode {
     private var theWidth: CGFloat = 300
     private var ballLabel: SKLabelNode = SKLabelNode()
     private var sideLen: CGFloat = 300
+    private var theNumbers: [Int] = []
+    private var theTextNodes: [SKLabelNode] = []
     
     func initializeGameBlock () {
         self.isUserInteractionEnabled = false
@@ -21,10 +23,22 @@ class gameBlock: SKSpriteNode {
         // self.size =  = theWidth
         // self.height = theHeight
         // var barra = SKSpriteNode()
+        self.theNumbers = [9,9,9,9,9,8,0,1,8,9,1,8,9,1,8,9,1,0,0,0]
+        let thePositions = [5,6,7,8,9,10,11,12,15,16,17,22,23,24,28,29,30,34,35,36]
         self.name = "tester"
         self.size = CGSize(width: sideLen, height: sideLen)
         self.color = UIColor.blue
-        
+        for i in 0...19 {
+            let numLabel = SKLabelNode(text: String(theNumbers[i]))
+            numLabel.fontName = "AvenirNext-Bold"
+            numLabel.fontSize = 36.0
+            numLabel.name = "n"+String(i)
+            let (q,r) = (thePositions[i]-1).quotientAndRemainder(dividingBy: 6)
+            numLabel.position = CGPoint(x: -125+50*r, y: 125-50*q)
+            self.theTextNodes.append(numLabel)
+            // numLabel.position = CGPoint(x: thePositions[i-1]%6*Int(self.theWidth), y: Int(thePositions[i-1]/6)*Int(self.theWidth))
+            self.addChild(numLabel)
+        }
         // let ball = SKSpriteNode(color: UIColor.red, size: CGSize(width: 200.0, height: 100.0))
         ballLabel.text = "hi there"
         // let ballLabel = SKLabelNode(text: "hello")
