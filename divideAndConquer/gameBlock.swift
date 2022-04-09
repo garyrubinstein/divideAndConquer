@@ -82,6 +82,11 @@ class gameBlock: SKSpriteNode {
     func getQuotient() -> Int {
         return quotient
     }
+    func setQuotient(n: Int) {
+        self.quotient = n
+        self.setNumbers()
+        self.updateNumbers()
+    }
     func getLabel() -> SKLabelNode {
         return ballLabel
     }

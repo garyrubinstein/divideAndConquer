@@ -11,6 +11,9 @@ import SpriteKit
 class GameScene: SKScene {
     var blockNum: Int = 0
     var buttonWidth: CGFloat = 50.0
+    var chosenBlock: Int = 0
+    var currentBlock: gameBlock = gameBlock()
+    var blockActive: Bool = false
     /*
     override func didMove(to view: SKView) {
         let testBlock = gameBlock(color: UIColor.white, size: CGSize(width: 300.0, height: 100.0))
@@ -41,26 +44,33 @@ class GameScene: SKScene {
         let plusTen = SKShapeNode(circleOfRadius: buttonWidth)
         let minusOne = SKShapeNode(circleOfRadius: buttonWidth)
         let minusTen = SKShapeNode(circleOfRadius: buttonWidth)
+        let makeBlock = SKShapeNode(circleOfRadius: buttonWidth)
         plusOne.fillColor = UIColor.red
         plusTen.fillColor = UIColor.blue
         minusOne.fillColor = UIColor.green
         minusTen.fillColor = UIColor.yellow
+        makeBlock.fillColor = UIColor.purple
         plusOne.name = "plusOne"
         plusTen.name = "plusTen"
         minusOne.name = "minusOne"
         minusTen.name = "minusTen"
+        makeBlock.name="makeBlock"
         plusOne.position = CGPoint(x: -300, y: 600)
         plusTen.position = CGPoint(x: -300, y: 500)
         minusOne.position = CGPoint(x: 300, y: 600)
         minusTen.position = CGPoint(x: 300, y: 500)
+        makeBlock.position = CGPoint(x: 0, y: 550)
         plusOne.zPosition = 5
         plusTen.zPosition = 5
         minusOne.zPosition = 5
         minusTen.zPosition = 5
+        makeBlock.zPosition = 5
+        
         self.addChild(plusOne)
         self.addChild(plusTen)
         self.addChild(minusOne)
         self.addChild(minusTen)
+        self.addChild(makeBlock)
     }
     func createBall() {
         //let ball = SKSpriteNode(imageNamed: "ball")
@@ -78,10 +88,15 @@ class GameScene: SKScene {
     }
     
     func createBlock () {
-        let testBlock = gameBlock(color: UIColor.red, size: CGSize(width: 300.0, height: 100.0))
+        var testBlock = gameBlock()
+        if (blockNum>0) {
+            testBlock = gameBlock(color: UIColor.red, size: CGSize(width: 300.0, height: 100.0))
+        }
         testBlock.initializeGameBlock()
         testBlock.getLabel().text = String(blockNum)
-        testBlock.setName(s: String(blockNum))
+        print("making block with name")
+        print(String(blockNum))
+        testBlock.setName(s: "b"+String(blockNum))
         blockNum += 1
         self.addChild(testBlock)
     }
@@ -90,14 +105,33 @@ class GameScene: SKScene {
         print("touched")
         
         for touch in touches {
+            if (blockNum>0) {
+                currentBlock = childNode(withName: "b0") as! gameBlock
+                // currentBlock.color = UIColor.red
+            }
             let location = touch.location(in: self)
             let touchedNode = self.nodes(at: location)
             // touchNothing = true
             for node in touchedNode {
                 print("nodename")
                 print(node.name)
+                if(node.name=="makeBlock") {
+                    createBlock()
+                }
+                if(node.name=="plusOne") {
+                    currentBlock.setQuotient(n: currentBlock.getQuotient()+1)
+                }
+                if(node.name=="plusTen") {
+                    currentBlock.setQuotient(n: currentBlock.getQuotient()+10)
+                }
+                if(node.name=="minusOne") {
+                    currentBlock.setQuotient(n: currentBlock.getQuotient()-1)
+                }
+                if(node.name=="minusTen") {
+                    currentBlock.setQuotient(n: currentBlock.getQuotient()-10)
+                }
             }
         }
-        createBlock()
+        // createBlock()
     }
 }
