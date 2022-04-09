@@ -86,6 +86,12 @@ class gameBlock: SKSpriteNode {
         self.quotient = n
         self.setNumbers()
         self.updateNumbers()
+        if (self.quotient == self.theAnswer) {
+            self.removeFromParent()
+        }
+    }
+    func getAnswer() -> Int {
+        return self.theAnswer
     }
     func getLabel() -> SKLabelNode {
         return ballLabel

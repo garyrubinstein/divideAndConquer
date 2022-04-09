@@ -14,6 +14,7 @@ class GameScene: SKScene {
     var chosenBlock: Int = 0
     var currentBlock: gameBlock = gameBlock()
     var blockActive: Bool = false
+    var activeBlockName: String = ""
     /*
     override func didMove(to view: SKView) {
         let testBlock = gameBlock(color: UIColor.white, size: CGSize(width: 300.0, height: 100.0))
@@ -105,8 +106,8 @@ class GameScene: SKScene {
         print("touched")
         
         for touch in touches {
-            if (blockNum>0) {
-                currentBlock = childNode(withName: "b0") as! gameBlock
+            if (blockActive && blockNum>0) {
+                currentBlock = childNode(withName: activeBlockName) as! gameBlock
                 // currentBlock.color = UIColor.red
             }
             let location = touch.location(in: self)
@@ -120,15 +121,35 @@ class GameScene: SKScene {
                 }
                 if(node.name=="plusOne") {
                     currentBlock.setQuotient(n: currentBlock.getQuotient()+1)
+                    if (currentBlock.getQuotient()+1 == currentBlock.getAnswer()) {
+                        blockActive = false
+                    }
                 }
                 if(node.name=="plusTen") {
                     currentBlock.setQuotient(n: currentBlock.getQuotient()+10)
+                    if (currentBlock.getQuotient()+10 == currentBlock.getAnswer()) {
+                        blockActive = false
+                    }
                 }
                 if(node.name=="minusOne") {
                     currentBlock.setQuotient(n: currentBlock.getQuotient()-1)
+                    if (currentBlock.getQuotient()-1 == currentBlock.getAnswer()) {
+                        blockActive = false
+                    }
                 }
                 if(node.name=="minusTen") {
                     currentBlock.setQuotient(n: currentBlock.getQuotient()-10)
+                    if (currentBlock.getQuotient()-10 == currentBlock.getAnswer()) {
+                        blockActive = false
+                    }
+                }
+                if(node.name?.first == "b") {
+                    print("touching a gameBlock")
+                    activeBlockName = node.name ?? ""
+                    blockActive = true
+                    currentBlock.color = UIColor.blue
+                    currentBlock = childNode(withName: activeBlockName) as! gameBlock
+                    currentBlock.color = UIColor.red
                 }
             }
         }
