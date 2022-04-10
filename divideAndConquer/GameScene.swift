@@ -56,10 +56,10 @@ class GameScene: SKScene {
         minusOne.name = "minusOne"
         minusTen.name = "minusTen"
         makeBlock.name="makeBlock"
-        plusOne.position = CGPoint(x: -300, y: 600)
-        plusTen.position = CGPoint(x: -300, y: 500)
-        minusOne.position = CGPoint(x: 300, y: 600)
-        minusTen.position = CGPoint(x: 300, y: 500)
+        plusOne.position = CGPoint(x: 300, y: 600)
+        plusTen.position = CGPoint(x: -300, y: 600)
+        minusOne.position = CGPoint(x: 300, y: 500)
+        minusTen.position = CGPoint(x: -300, y: 500)
         makeBlock.position = CGPoint(x: 0, y: 550)
         plusOne.zPosition = 5
         plusTen.zPosition = 5
@@ -102,14 +102,27 @@ class GameScene: SKScene {
         self.addChild(testBlock)
     }
     
+    func updateQuotient(amount: Int) {
+        currentBlock = childNode(withName: activeBlockName) as! gameBlock
+        print("comparing")
+        print(currentBlock.getQuotient()+amount)
+        print(currentBlock.getAnswer())
+        if (currentBlock.getQuotient()+amount == currentBlock.getAnswer()) {
+            blockActive = false
+            print("removing block")
+        }
+        currentBlock.setQuotient(n: currentBlock.getQuotient()+amount)
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         print("touched")
-        
+        if (blockActive && blockNum>0) {
+            print("blockActive is True")
+            currentBlock = childNode(withName: activeBlockName) as! gameBlock
+            // currentBlock.color = UIColor.red
+        }
         for touch in touches {
-            if (blockActive && blockNum>0) {
-                currentBlock = childNode(withName: activeBlockName) as! gameBlock
-                // currentBlock.color = UIColor.red
-            }
+            
             let location = touch.location(in: self)
             let touchedNode = self.nodes(at: location)
             // touchNothing = true
@@ -119,29 +132,34 @@ class GameScene: SKScene {
                 if(node.name=="makeBlock") {
                     createBlock()
                 }
-                if(node.name=="plusOne") {
-                    currentBlock.setQuotient(n: currentBlock.getQuotient()+1)
+                if(blockActive && node.name=="plusOne") {
+                    updateQuotient(amount: 1)
+                    /* currentBlock.setQuotient(n: currentBlock.getQuotient()+1)
                     if (currentBlock.getQuotient()+1 == currentBlock.getAnswer()) {
                         blockActive = false
                     }
+                    */
                 }
-                if(node.name=="plusTen") {
-                    currentBlock.setQuotient(n: currentBlock.getQuotient()+10)
+                if(blockActive && node.name=="plusTen") {
+                    updateQuotient(amount: 10)
+/*                    currentBlock.setQuotient(n: currentBlock.getQuotient()+10)
                     if (currentBlock.getQuotient()+10 == currentBlock.getAnswer()) {
                         blockActive = false
-                    }
+                    }*/
                 }
-                if(node.name=="minusOne") {
-                    currentBlock.setQuotient(n: currentBlock.getQuotient()-1)
+                if(blockActive && node.name=="minusOne") {
+                    updateQuotient(amount: -1)
+/*                    currentBlock.setQuotient(n: currentBlock.getQuotient()-1)
                     if (currentBlock.getQuotient()-1 == currentBlock.getAnswer()) {
                         blockActive = false
-                    }
+                    }*/
                 }
-                if(node.name=="minusTen") {
-                    currentBlock.setQuotient(n: currentBlock.getQuotient()-10)
+                if(blockActive && node.name=="minusTen") {
+                    updateQuotient(amount: -10)
+/*                    currentBlock.setQuotient(n: currentBlock.getQuotient()-10)
                     if (currentBlock.getQuotient()-10 == currentBlock.getAnswer()) {
                         blockActive = false
-                    }
+                    }*/
                 }
                 if(node.name?.first == "b") {
                     print("touching a gameBlock")

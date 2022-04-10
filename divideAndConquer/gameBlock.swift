@@ -58,7 +58,9 @@ class gameBlock: SKSpriteNode {
         // ball.position = CGPoint(x: CGFloat(Int(arc4random()) & Int(size.width)), y: size.height - ball.size.height)
         self.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: sideLen, height: sideLen))
         // ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width/2)
-        self.addChild(ballLabel)
+        // self.physicsBody?.allowsRotation = false
+        self.physicsBody?.restitution = 0.3
+        // self.addChild(ballLabel)
         // self.color = SKColor.green
         // self.position = CGPoint(x: 100, y: 100)
         // self.addChild(barra)
@@ -113,6 +115,9 @@ class gameBlock: SKSpriteNode {
         self.theNumbers.append(contentsOf: numberToArray(n: abs(self.dividend-10*tens*self.divisor), p: 4))
         self.theNumbers.append(contentsOf: numberToArray(n: ones*self.divisor, p: 4))
         self.theNumbers.append(contentsOf: numberToArray(n: abs(self.dividend-quotient*divisor), p: 4))
+        // more formatting
+        // self.theNumbers[3]=""
+        // self.theNumbers[4]=""
     }
     func numberToArray(n: Int, p: Int) -> [Int] {
         var n1 = n
@@ -129,7 +134,15 @@ class gameBlock: SKSpriteNode {
     }
     func updateNumbers() {
         for i in 0...24 {
-            self.theTextNodes[i].text = String(self.theNumbers[i])
+            var theNumber = String(self.theNumbers[i])
+            if (i==0 || i==1) {
+                theNumber = ""
+            }
+            if (i==6 && theNumber == "0") {
+                theNumber = ""
+            }
+            self.theTextNodes[i].text = theNumber
+            
         }
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
